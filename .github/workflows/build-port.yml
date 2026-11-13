@@ -26,7 +26,7 @@ jobs:
       - name: Download original AppImage
         run: curl -fL -o lichii-linux-aarch64.AppImage "${{ inputs.appimage_url }}"
       - name: Build port
-        run: ./scripts/build-port.sh lichii-linux-aarch64.AppImage "$HOME/Qt/${{ inputs.qt_version }}/gcc_arm64"
+        run: bash scripts/build-port.sh lichii-linux-aarch64.AppImage "$HOME/Qt/${{ inputs.qt_version }}/gcc_arm64"
       - uses: actions/upload-artifact@v4
         with:
           name: lichii-port
