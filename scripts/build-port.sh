@@ -67,6 +67,8 @@ export LD_LIBRARY_PATH="\$HERE/usr/lib:\$HERE/lib:\${LD_LIBRARY_PATH:-}"
 export QT_PLUGIN_PATH="\$HERE/usr/plugins"
 export QT_QPA_PLATFORM="\${QT_QPA_PLATFORM:-xcb}"
 export QT_XCB_GL_INTEGRATION="\${QT_XCB_GL_INTEGRATION:-none}"
+# expose Android shared storage inside home so file dialogs can browse it
+if [ -d /sdcard ] && [ -n "\$HOME" ]; then ln -sfn /sdcard "\$HOME/sdcard" 2>/dev/null || true; fi
 cd "\$HERE"
 exec "\$HERE/$REAL" "\$@"
 WRAP
