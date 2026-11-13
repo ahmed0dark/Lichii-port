@@ -71,7 +71,7 @@ cd "$WORK"
 echo "==> Checking for unresolved libs"
 BIN="$APPDIR/$REAL"; [ -e "$BIN" ] || BIN="$APPDIR/usr/bin/lichii"
 LD_LIBRARY_PATH="$APPDIR/usr/lib" ldd "$BIN" | grep "not found" || echo "none missing"
-
+chmod -R a+rX "$APPDIR"
 echo "==> Repacking AppImage"
 if [ ! -x appimagetool ]; then
   curl -fsSL -o appimagetool \
