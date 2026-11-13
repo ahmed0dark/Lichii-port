@@ -48,6 +48,11 @@ for n in libxcb-cursor libxcb-icccm libxcb-image libxcb-keysyms libxcb-render-ut
   done
 done
 
+echo "==> Bundling OpenGL dispatch libs"
+for l in /usr/lib/aarch64-linux-gnu/libOpenGL.so* /usr/lib/aarch64-linux-gnu/libGLdispatch.so*; do
+  [ -e "$l" ] && cp -aL "$l" "$APPDIR/usr/lib/" || true
+done
+
 echo "==> Writing wrapper AppRun"
 cd "$APPDIR"
 if [ -L AppRun ]; then
@@ -71,7 +76,9 @@ cd "$WORK"
 echo "==> Checking for unresolved libs"
 BIN="$APPDIR/$REAL"; [ -e "$BIN" ] || BIN="$APPDIR/usr/bin/lichii"
 LD_LIBRARY_PATH="$APPDIR/usr/lib" ldd "$BIN" | grep "not found" || echo "none missing"
+
 chmod -R a+rX "$APPDIR"
+
 echo "==> Repacking AppImage"
 if [ ! -x appimagetool ]; then
   curl -fsSL -o appimagetool \
